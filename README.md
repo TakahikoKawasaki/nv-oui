@@ -4,9 +4,9 @@ Utility for OUI
 Overview
 --------
 
-This library contains a utility class for *[OUI][1]*. OUI is short for
+This library contains a utility class for **[OUI][1]**. OUI is short for
 _Organizationally Unique Identifier_. It is a 24-bit number assigned to
-organizations by IEEE Standards Association, [Registration Authority][2].
+organizations by _IEEE Standards Association, [Registration Authority][2]_.
 
 
 License
@@ -63,26 +63,30 @@ The current version of this library provides `Oui.getName` method only.
 It is a method to look up an organization name by an OUI.
 
 ```java
-// (1) "Apple, Inc." is returned.
+// (1) Look up by a 6-hexadecimal OUI. ("Apple, Inc." is returned.)
 String name = Oui.getName("00CDFE");
 
-// (2) "Google, Inc." (case-insensitive)
+// (2) Case-insensitive. ("Google, Inc.")
 Oui.getName("3c5ab4");
 
-// (3) "Microsoft Corporation" (Semi-colons can be interleaved.)
+// (3) Semi-colons can be interleaved. ("Microsoft Corporation")
 Oui.getName("48:50:73");
 
-// (4) "Facebook" (A 48-bit device address is okay.)
+// (4) A 48-bit device address is okay. ("Facebook")
 Oui.getName("48:57:dd:01:02:03");
 
-// (5) "Amazon Technologies Inc." (Hyphens are okay, too.)
+// (5) Hyphens are okay, too. ("Amazon Technologies Inc.")
 Oui.getName("F0-D2-F1");
 
-// (6) "Oracle Corporation" (Only the first 6 hexadecimal letters have a meeting.)
+// (6) Only the first 6 hexadecimal letters have a meeting. ("Oracle Corporation")
 Oui.getName("0010e0#XYZ")
 
-// (7) "IBM Corp" (This is parsed successfully, too.)
+// (7) This is parsed successfully, too. ("Intel Corporation")
 Oui.getName("00:03-47@XYZ");
+
+// (8) Look up by a byte array. ("IBM Corp")
+byte[] oui = { 0x00, 0x04, (byte)0xAC };
+Oui.getName(oui);
 ```
 
 
