@@ -4,7 +4,7 @@
 
     <groupId>com.neovisionaries</groupId>
     <artifactId>nv-oui</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <packaging>bundle</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Utility for Organizationally Unique Identifier</description>
@@ -27,7 +27,7 @@
         <connection>scm:git:git@github.com:TakahikoKawasaki/nv-oui.git</connection>
         <developerConnection>scm:git:git@github.com:TakahikoKawasaki/nv-oui.git</developerConnection>
         <url>git@github.com:TakahikoKawasaki/nv-oui.git</url>
-        <tag>HEAD</tag>
+        <tag>nv-oui-1.1</tag>
     </scm>
 
     <properties>
