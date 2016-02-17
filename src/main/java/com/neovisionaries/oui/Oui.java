@@ -49,11 +49,16 @@ public class Oui
 
 
     /**
-     * Constructor with OUI data in {@link Map} format.
+     * A constructor with OUI data in {@link Map} format.
      *
      * <p>
      * Keys in the data must be 6 upper-case hexadecimal letters that
      * represent OUIs. Values in the data must be organization names.
+     * <p>
+     *
+     * <p>
+     * A map returned from {@code parse} method of {@link OuiCsvParser}
+     * class can be used as the parameter of this constructor.
      * </p>
      *
      * @param data

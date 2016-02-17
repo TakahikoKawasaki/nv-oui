@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
 
 
 /**
- * A parser for a {@code oui.csv} file.
+ * A parser for an {@code oui.csv} file.
  *
  * @see <a href="https://standards.ieee.org/develop/regauth/oui/oui.csv"
  *      >MAC Address Block Large (MA-L) [csv]</a>
@@ -47,6 +47,17 @@ public class OuiCsvParser
     private static final Pattern DATA_LINE_PATTERN = Pattern.compile("^MA-L,([0-9A-F]{6}),(.+)$");
 
 
+    /**
+     * Parse an {@code oui.csv} file.
+     *
+     * @param source
+     *         An {@code oui.csv} file.
+     *
+     * @return
+     *         A map having pairs of an OUI (6 upper-case hexadecimal letters)
+     *         and an organization name. It can be used as a parameter for
+     *         the constructor of {@link Oui} class.
+     */
     public SortedMap<String, String> parse(URL source) throws IOException
     {
         checkNull("source", source);
@@ -64,6 +75,17 @@ public class OuiCsvParser
     }
 
 
+    /**
+     * Parse an {@code oui.csv} file.
+     *
+     * @param source
+     *         An {@code oui.csv} file.
+     *
+     * @return
+     *         A map having pairs of an OUI (6 upper-case hexadecimal letters)
+     *         and an organization name. It can be used as a parameter for
+     *         the constructor of {@link Oui} class.
+     */
     public SortedMap<String, String> parse(InputStream source) throws IOException
     {
         checkNull("source", source);
@@ -72,6 +94,17 @@ public class OuiCsvParser
     }
 
 
+    /**
+     * Parse an {@code oui.csv} file.
+     *
+     * @param source
+     *         An {@code oui.csv} file.
+     *
+     * @return
+     *         A map having pairs of an OUI (6 upper-case hexadecimal letters)
+     *         and an organization name. It can be used as a parameter for
+     *         the constructor of {@link Oui} class.
+     */
     public SortedMap<String, String> parse(Reader source) throws IOException
     {
         checkNull("source", source);
@@ -88,6 +121,17 @@ public class OuiCsvParser
     }
 
 
+    /**
+     * Parse an {@code oui.csv} file.
+     *
+     * @param source
+     *         An {@code oui.csv} file.
+     *
+     * @return
+     *         A map having pairs of an OUI (6 upper-case hexadecimal letters)
+     *         and an organization name. It can be used as a parameter for
+     *         the constructor of {@link Oui} class.
+     */
     public SortedMap<String, String> parse(BufferedReader source) throws IOException
     {
         checkNull("source", source);
