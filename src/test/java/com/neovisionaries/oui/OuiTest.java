@@ -18,20 +18,39 @@ package com.neovisionaries.oui;
 
 
 import static org.junit.Assert.assertEquals;
+import java.io.IOException;
+import java.net.URL;
 import org.junit.Test;
 
 
 public class OuiTest
 {
+    private static final Oui OUI = loadOui("file:data/oui.csv");
+
+
+    private static Oui loadOui(String csv)
+    {
+        try
+        {
+            return new Oui(new OuiCsvParser().parse(new URL(csv)));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
     private static void doTest(String address, String expectedName)
     {
-        assertEquals(expectedName, Oui.getName(address));
+        assertEquals(expectedName, OUI.getName(address));
     }
 
 
     private static void doTest(byte[] address, String expectedName)
     {
-        assertEquals(expectedName, Oui.getName(address));
+        assertEquals(expectedName, OUI.getName(address));
     }
 
 

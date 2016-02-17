@@ -17,9 +17,7 @@
 package com.neovisionaries.oui;
 
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,26 +39,31 @@ import java.util.regex.Pattern;
 public class Oui
 {
     /**
-     * The name of the data file.
-     */
-    private static final String DATA_FILE = "/com/neovisionaries/oui/oui.properties";
-
-
-    /**
-     * The content of the data file.
-     */
-    private static final Properties DATA = prepareData();
-
-
-    /**
      * The pattern of OUIs given to {@link #getName(String)} method.
      */
     private static final Pattern OUI_PATTERN =
             Pattern.compile("^([0-9a-fA-F]{2})[:-]?([0-9a-fA-F]{2})[:-]?([0-9a-fA-F]{2}).*");
 
 
-    private Oui()
+    private final Map<String, String> mData;
+
+
+    /**
+     * Constructor with OUI data in {@link Map} format.
+     *
+     * <p>
+     * Keys in the data must be 6 upper-case hexadecimal letters that
+     * represent OUIs. Values in the data must be organization names.
+     * </p>
+     *
+     * @param data
+     *         OUI data.
+     *
+     * @since 1.1
+     */
+    public Oui(Map<String, String> data)
     {
+        mData = data;
     }
 
 
@@ -104,6 +107,11 @@ public class Oui
      *   </table>
      * </blockquote>
      *
+     * <p>
+     * This method was a static method in version 1.0, but it is an instance
+     * method since version 1.1.
+     * </p>
+     *
      * @param oui
      *         An OUI. If {@code null} is given, {@code null} is returned.
      *
@@ -111,9 +119,9 @@ public class Oui
      *         An organization name. If the OUI not belong to any organization,
      *         {@code null} is returned.
      */
-    public static String getName(String oui)
+    public String getName(String oui)
     {
-        if (oui == null)
+        if (oui == null || mData == null)
         {
             // Not found.
             return null;
@@ -135,12 +143,17 @@ public class Oui
             matcher.group(3).toUpperCase());
 
         // Look up.
-        return DATA.getProperty(number);
+        return mData.get(number);
     }
 
 
     /**
      * Get the name of the organization which the OUI belongs to.
+     *
+     * <p>
+     * This method was a static method in version 1.0, but it is an instance
+     * method since version 1.1.
+     * </p>
      *
      * @param oui
      *         An OUI. The first 3 bytes (= 24-bit) in the byte array
@@ -152,61 +165,18 @@ public class Oui
      *         An organization name. If the OUI does not belong to any
      *         organization, {@code null} is returned.
      */
-    public static String getName(byte[] oui)
+    public String getName(byte[] oui)
     {
-        if (oui == null || oui.length < 3)
+        if (oui == null || oui.length < 3 || mData == null)
         {
             // Not found.
             return null;
         }
 
         // Construct a 6-letter OUI.
-        String number = String.format("%02X%02X%02X",
-            oui[0], oui[1], oui[2]);
+        String number = String.format("%02X%02X%02X", oui[0], oui[1], oui[2]);
 
         // Look up.
-        return DATA.getProperty(number);
-    }
-
-
-    /**
-     * Load the data file.
-     */
-    private static Properties prepareData()
-    {
-        Properties props = new Properties();
-        InputStream in = null;
-
-        try
-        {
-            // Open the data file.
-            in = Oui.class.getResourceAsStream(DATA_FILE);
-
-            if (in != null)
-            {
-                // Load the content of the data file.
-                props.load(in);
-            }
-        }
-        catch (Exception e)
-        {
-            // Failed to open or load the data file.
-        }
-
-        // If the data file was open.
-        if (in != null)
-        {
-            try
-            {
-                // Close the data file.
-                in.close();
-            }
-            catch (IOException e)
-            {
-                // Ignore this error.
-            }
-        }
-
-        return props;
+        return mData.get(number);
     }
 }
