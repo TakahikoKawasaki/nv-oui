@@ -78,7 +78,7 @@ public class OuiTest
     @Test
     public void test04()
     {
-        doTest("48:57:dd:01:02:03", "Facebook");
+        doTest("48:57:dd:01:02:03", "Facebook Inc");
     }
 
 
